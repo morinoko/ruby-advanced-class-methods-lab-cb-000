@@ -23,21 +23,17 @@ class Song
   end
   
   def self.create_by_name(name)
-    song = self.new_by_name(name)
-    song.save
+    song = self.create
+    song.name = name
     song
   end
   
   def self.find_by_name(searched_name)
-    @@all.find{ |song| song.name == searched_name }
+    self.all.find{ |song| song.name == searched_name }
   end
   
   def self.find_or_create_by_name(song_name)
-    if self.find_by_name(song_name) == nil
-      self.create_by_name(song_name)
-    else
-      self.find_by_name(song_name)
-    end
+    self.find_by_name(song_name) || self.create_by_name(song_name)
   end
   
   def self.alphabetical
